@@ -1,0 +1,8 @@
+<launch>
+    <arg name="carla_host" default="localhost"/>
+    <arg name="carla_port" default="2000"/>
+    <node pkg="gnss_localizer" exec="gnss_localizer" name="gnss_localizer">
+        <param name="carla_host" value="$(var carla_host)"/>
+        <param name="carla_port" value="$(var carla_port)"/>
+    </node>
+</launch>

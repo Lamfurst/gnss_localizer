@@ -14,9 +14,17 @@ import math
 class GnssLocalizer(Node):
     def __init__(self):
         super().__init__("gnss_localizer")
-        # self.sub_topic_ = "/sensing/gnss/pose_with_covariance"
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('carla_host', rclpy.Parameter.Type.STRING),
+                ('carla_port', rclpy.Parameter.Type.INTEGER)
+            ]
+        )
+        _carla_host = self.get_parameter('carla_host').get_parameter_value().string_value
+        _carla_port = self.get_parameter('carla_port').get_parameter_value().integer_value
 
-        self.client = carla.Client("localhost", 2000)
+        self.client = carla.Client(_carla_host, _carla_port)
         self.client.set_timeout(5.0)
         self.world = self.client.get_world()
 
